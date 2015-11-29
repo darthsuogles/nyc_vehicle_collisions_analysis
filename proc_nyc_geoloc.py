@@ -11,17 +11,15 @@ from __future__ import unicode_literals
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-# Ref: https://flask-socketio.readthedocs.org
-from flask import Flask, render_template
-from flask_socketio import SocketIO
+# # Ref: https://flask-socketio.readthedocs.org
+# from flask import Flask, render_template
+# from flask_socketio import SocketIO
 
+from datetime import datetime
 import os
 import json
 import webbrowser
 from tempfile import NamedTemporaryFile
-TMP_DIRNAME = "._geojson_olyr3_render"
-if not os.path.exists(TMP_DIRNAME):
-    os.makedirs(TMP_DIRNAME)
 
 """
 latitude
@@ -44,9 +42,6 @@ vehicle_type_code1
 vehicle_type_code2
 zip_code
 """
-
-nyc_fname = "nyc_vehicle_collisions.csv"
-df_orig = pd.read_csv(nyc_fname)
 
 def draw_coords_heatmap(df):
     """
@@ -78,15 +73,28 @@ def draw_coords_heatmap(df):
     webbrowser.open('olyr3_nypd.html')
 
 ############################################################
-col_names = {
-    'DATE': 'date',
-    'TIME': 'time',
-    'LATITUDE': 'lat',
-    'LONGITUDE': 'lon',
-    'NUMBER OF PERSONS INJURED': 'num_injured',
-    'NUMBER OF PERSONS KILLED': 'num_killed'
-}
-df = df_orig[list(col_names.keys())].rename(columns=col_names)
-df_with_death = df[ df['num_killed'] > 0 ]
-df_with_injury = df[ df['num_injured'] > 0 ]
+if __name__ == "__main__":
+    TMP_DIRNAME = "._geojson_olyr3_render"
+    if not os.path.exists(TMP_DIRNAME):
+        os.makedirs(TMP_DIRNAME)
+
+    nyc_fname = "nyc_vehicle_collisions.csv"
+    df_orig = pd.read_csv(nyc_fname)
+        
+    col_names = {
+        'DATE': 'date',
+        'TIME': 'time',
+        'LATITUDE': 'lat',
+        'LONGITUDE': 'lon',
+        'NUMBER OF PERSONS INJURED': 'num_injured',
+        'NUMBER OF PERSONS KILLED': 'num_killed'
+    }
+    df = df_orig[list(col_names.keys())].rename(columns=col_names)
+    df["datetime"] = pd.to_datetime(ss, format="%m/%d/%Y %H:%M")
+
+    df_with_death = df[ df['num_killed'] > 0 ]
+    df_with_injury = df[ df['num_injured'] > 0 ]
+
 ############################################################
+
+
