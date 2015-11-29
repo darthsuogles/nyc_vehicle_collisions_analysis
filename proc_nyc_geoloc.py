@@ -46,7 +46,10 @@ zip_code
 def draw_coords_heatmap(df):
     """
     Plot dataframe latlon coordinates on map
-    """
+    
+    Input =>
+      df: Pandas DataFrame, should contain columns ['lat', 'lon']
+    """        
     def to_geojson_feature(rec):
         return {
             "type": "Feature",
@@ -64,7 +67,8 @@ def draw_coords_heatmap(df):
             "features": feature_list
         }
 
-    TMP_DIRNAME = "._geojson_olyr3_render"
+    module_dirname = os.path.dirname(__file__))
+    TMP_DIRNAME = "{dirnm}/._geojson_olyr3_render".format(dirnm=module_dirname)
     if not os.path.exists(TMP_DIRNAME):
         os.makedirs(TMP_DIRNAME)
 
@@ -74,7 +78,7 @@ def draw_coords_heatmap(df):
         json.dump(geojson, fout)
     #fout.close()
 
-    webbrowser.open('{}/olyr3_nypd.html'.format(os.path.dirname(__file__)))
+    webbrowser.open('{dirnm}/olyr3_nypd.html'.format(dirnm=module_dirname)
 
 ############################################################
 if __name__ == "__main__":
