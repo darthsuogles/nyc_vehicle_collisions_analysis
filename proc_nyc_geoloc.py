@@ -64,20 +64,21 @@ def draw_coords_heatmap(df):
             "features": feature_list
         }
 
+    TMP_DIRNAME = "._geojson_olyr3_render"
+    if not os.path.exists(TMP_DIRNAME):
+        os.makedirs(TMP_DIRNAME)
+
     geojson = to_geojson_feature_collection(df.dropna())
     #fout = NamedTemporaryFile(suffix=".json", dir=TMP_DIRNAME)
     with open("{}/collisions_latlon.json".format(TMP_DIRNAME), 'w') as fout:
         json.dump(geojson, fout)
     #fout.close()
 
-    webbrowser.open('olyr3_nypd.html')
+    webbrowser.open('{}/olyr3_nypd.html'.format(os.path.dirname(__file__)))
 
 ############################################################
 if __name__ == "__main__":
-    TMP_DIRNAME = "._geojson_olyr3_render"
-    if not os.path.exists(TMP_DIRNAME):
-        os.makedirs(TMP_DIRNAME)
-
+    
     nyc_fname = "nyc_vehicle_collisions.csv"
     df_orig = pd.read_csv(nyc_fname)
         
