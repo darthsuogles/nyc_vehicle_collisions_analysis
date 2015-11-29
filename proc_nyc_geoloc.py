@@ -67,7 +67,7 @@ def draw_coords_heatmap(df):
             "features": feature_list
         }
 
-    module_dirname = os.path.dirname(__file__))
+    module_dirname = os.path.dirname(__file__)
     TMP_DIRNAME = "{dirnm}/._geojson_olyr3_render".format(dirnm=module_dirname)
     if not os.path.exists(TMP_DIRNAME):
         os.makedirs(TMP_DIRNAME)
