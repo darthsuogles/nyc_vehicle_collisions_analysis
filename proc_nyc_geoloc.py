@@ -78,7 +78,7 @@ def draw_coords_heatmap(df):
         json.dump(geojson, fout)
     #fout.close()
 
-    webbrowser.open('{dirnm}/olyr3_nypd.html'.format(dirnm=module_dirname)
+    webbrowser.open('{dirnm}/olyr3_nypd.html'.format(dirnm=module_dirname))
 
 ############################################################
 if __name__ == "__main__":
